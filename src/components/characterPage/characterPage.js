@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { Col, Row, Container } from "reactstrap";
+import { Col, Row } from "reactstrap";
 import ItemList from "../itemList";
 import CharDetails from "../charDetails";
 import ErrorMessage from "../errorMessage";
 
 export default class CharacterPage extends Component {
   state = {
-    seletedChar: 130,
-    error: false
+    selectedChar: 130,
+    error: false,
   };
 
   onCharSelected = (id) => {
@@ -24,8 +24,8 @@ export default class CharacterPage extends Component {
 
   render() {
     if (this.state.error) {
-        return <ErrorMessage />;
-      }
+      return <ErrorMessage />;
+    }
     return (
       <Row>
         <Col md="6">

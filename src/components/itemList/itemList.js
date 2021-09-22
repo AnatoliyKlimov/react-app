@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./itemList.css";
-import gotService from "../../services/gotService.js";
+import gotService from "../../services/gotService";
+import ErrorMessage from "../errorMessage";
 import Spinner from "../spinner";
 
 export default class ItemList extends Component {
@@ -8,32 +9,54 @@ export default class ItemList extends Component {
 
   state = {
     charList: null,
+    error: false,
   };
-
   componentDidMount() {
-    this.gotService.getAllCharacters().then((charList) => {
-      this.setState({
-        charList,
+    this.gotService
+      .getAllCharacters()
+      .then((charList) => {
+        this.setState({
+          charList,
+          error: false,
+        });
+      })
+      .catch(() => {
+        this.onError();
       });
+  }
+  componentDidCatch() {
+    this.setState({
+      charList: null,
+      error: true,
     });
   }
-
+  onError(status) {
+    this.setState({
+      charList: null,
+      error: true,
+    });
+  }
   renderItems(arr) {
-    return arr.map((item, i) => {
+    return arr.map((item) => {
+      const { id, name } = item;
       return (
         <li
-          key={i}
+          key={id}
           className="list-group-item"
-          onClick={() => this.props.onCharSelected(41 + i)}
+          onClick={() => this.props.onCharSelected(id)}
         >
-          {item.name}
+          {name}
         </li>
       );
     });
   }
 
   render() {
-    const { charList } = this.state;
+    const { charList, error } = this.state;
+
+    if (error) {
+      return <ErrorMessage />;
+    }
 
     if (!charList) {
       return <Spinner />;
