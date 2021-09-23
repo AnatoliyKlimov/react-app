@@ -55,7 +55,6 @@ export default class App extends Component {
             </Row>
             <Route
               path="/"
-              component={() => <h1>Welcome to GOT DB</h1>}
               exact
             />
             <Route path="/characters" component={CharacterPage} />
