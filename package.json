@@ -29,6 +29,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "babel-plugin-react-html-attrs": "^3.0.5",
     "react-router-dom": "^5.3.0"
   }
 }
